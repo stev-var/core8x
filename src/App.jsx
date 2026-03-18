@@ -17,7 +17,7 @@ const MagneticCursor = () => {
         gsap.to(cursorDot.current, { x: e.clientX, y: e.clientY, duration: 0, ease: 'none' });
         gsap.to(cursorRing.current, { x: e.clientX, y: e.clientY, duration: 0.6, ease: 'expo.out' });
       });
-      
+
       const interactables = document.querySelectorAll('button, a, .clickable, .product-card');
       interactables.forEach((el) => {
         el.addEventListener('mouseenter', () => {
@@ -54,28 +54,19 @@ const App = () => {
 
     mm.add("all", () => {
       // Glancing Light / Shimmer Effect across the logo rings
-      gsap.to('.shimmer', { 
-        left: '150%', 
-        duration: 1.5, 
-        repeat: -1, 
-        repeatDelay: 3.5, 
-        ease: 'power2.inOut' 
-      });
-
-      // UrbanCave text wave float animation
-      gsap.to('.urbancave-char', { 
-        y: -6, 
-        rotationZ: 3,
-        duration: 1.5, 
-        stagger: { each: 0.08, yoyo: true, repeat: -1 }, 
-        ease: 'sine.inOut' 
+      gsap.to('.shimmer', {
+        left: '150%',
+        duration: 1.5,
+        repeat: -1,
+        repeatDelay: 3.5,
+        ease: 'power2.inOut'
       });
     });
 
     const initializeScrollAnimations = (selector, scrollerElement) => {
       const items = gsap.utils.toArray(`${selector} .reveal-item`);
       items.forEach((item) => {
-        gsap.fromTo(item, 
+        gsap.fromTo(item,
           { opacity: 0, y: 80, scale: 0.95 },
           {
             opacity: 1, y: 0, scale: 1, duration: 1.2, ease: 'expo.out',
@@ -88,9 +79,9 @@ const App = () => {
           }
         );
       });
-      
+
       const products = gsap.utils.toArray(`${selector} .product-card`);
-      if(products.length > 0) {
+      if (products.length > 0) {
         gsap.set(products, { opacity: 0, y: 100, rotationX: 10 });
         ScrollTrigger.batch(products, {
           scroller: scrollerElement,
@@ -125,9 +116,9 @@ const App = () => {
       if (scrollerNode && scrollerNode.children[0]) {
         gsap.fromTo(`${selector}-progress`,
           { scaleX: 0 },
-          { 
-            scaleX: 1, 
-            ease: "none", 
+          {
+            scaleX: 1,
+            ease: "none",
             scrollTrigger: {
               trigger: scrollerNode.children[0], // Tracks inner scroll bounds
               scroller: scrollerElement,
@@ -138,7 +129,7 @@ const App = () => {
           }
         );
       }
-      
+
       setTimeout(() => {
         ScrollTrigger.refresh();
       }, 850);
@@ -152,47 +143,47 @@ const App = () => {
       const tl = gsap.timeline({ defaults: { ease: 'power3.inOut', duration: 1 } });
 
       if (activeBrand === 'split') {
-        tl.to(coreRef.current, { 
-            width: isMobile ? '100%' : '50%', 
+        tl.to(coreRef.current, {
+          width: isMobile ? '100%' : '50%',
+          height: isMobile ? '50%' : '100%',
+          top: '0%', left: '0%', zIndex: 1
+        }, 0)
+          .to(urbanRef.current, {
+            width: isMobile ? '100%' : '50%',
             height: isMobile ? '50%' : '100%',
-            top: '0%', left: '0%', zIndex: 1 
-          }, 0)
-          .to(urbanRef.current, { 
-            width: isMobile ? '100%' : '50%', 
-            height: isMobile ? '50%' : '100%', 
-            top: isMobile ? '50%' : '0%', 
-            left: isMobile ? '0%' : '50%', 
-            zIndex: 1 
+            top: isMobile ? '50%' : '0%',
+            left: isMobile ? '0%' : '50%',
+            zIndex: 1
           }, 0)
           .to('.brand-content', { opacity: 1, scale: 1, duration: 0.8 }, 0.4)
           .to('.full-content', { opacity: 0, pointerEvents: 'none', y: 50, duration: 0.4 }, 0);
       } else if (activeBrand === 'core8x') {
-        tl.to(coreRef.current, { 
-            width: '100%', height: '100%', top: '0%', left: '0%', zIndex: 10 
-          }, 0)
-          .to(urbanRef.current, { 
-            width: isMobile ? '100%' : '0%', 
-            height: isMobile ? '0%' : '100%', 
-            top: isMobile ? '100%' : '0%', 
-            left: isMobile ? '0%' : '100%', 
-            zIndex: 1 
+        tl.to(coreRef.current, {
+          width: '100%', height: '100%', top: '0%', left: '0%', zIndex: 10
+        }, 0)
+          .to(urbanRef.current, {
+            width: isMobile ? '100%' : '0%',
+            height: isMobile ? '0%' : '100%',
+            top: isMobile ? '100%' : '0%',
+            left: isMobile ? '0%' : '100%',
+            zIndex: 1
           }, 0)
           .to(contentCoreRef.current, { opacity: 0, scale: 0.9, duration: 0.4 }, 0)
           .to('.full-content.core', { opacity: 1, pointerEvents: 'auto', y: 0, duration: 0.8 }, 0.6);
-          
+
         initializeScrollAnimations('.core', '.full-content.core');
       } else if (activeBrand === 'urbancave') {
-        tl.to(coreRef.current, { 
-            width: isMobile ? '100%' : '0%', 
-            height: isMobile ? '0%' : '100%', 
-            top: '0%', left: '0%', zIndex: 1 
-          }, 0)
-          .to(urbanRef.current, { 
-            width: '100%', height: '100%', top: '0%', left: '0%', zIndex: 10 
+        tl.to(coreRef.current, {
+          width: isMobile ? '100%' : '0%',
+          height: isMobile ? '0%' : '100%',
+          top: '0%', left: '0%', zIndex: 1
+        }, 0)
+          .to(urbanRef.current, {
+            width: '100%', height: '100%', top: '0%', left: '0%', zIndex: 10
           }, 0)
           .to(contentUrbanRef.current, { opacity: 0, scale: 0.9, duration: 0.4 }, 0)
           .to('.full-content.urban', { opacity: 1, pointerEvents: 'auto', y: 0, duration: 0.8 }, 0.6);
-          
+
         initializeScrollAnimations('.urban', '.full-content.urban');
       }
     });
@@ -201,6 +192,10 @@ const App = () => {
   }, [activeBrand]);
 
   useEffect(() => {
+    // DO NOT run Lenis JS-smooth scroll on touch devices to preserve native mobile hardware scrolling
+    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || window.matchMedia("(max-width: 768px)").matches;
+    if (isTouchDevice) return;
+
     let lenis;
     let scrollerWrapper = null;
     let contentLayer = null;
@@ -212,7 +207,7 @@ const App = () => {
     if (scrollerWrapper) {
       contentLayer = scrollerWrapper.children[0];
       // Switch to local Lenis logic
-      scrollerWrapper.style.overflowY = 'hidden'; 
+      scrollerWrapper.style.overflowY = 'hidden';
       lenis = new Lenis({
         wrapper: scrollerWrapper,
         content: contentLayer,
@@ -269,7 +264,7 @@ const App = () => {
 
       {/* Navigation Tabs - Floating */}
       <div className="fixed bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-50 glass rounded-full px-4 md:px-6 py-2 md:py-3 flex items-center space-x-3 md:space-x-6 shadow-2xl transition-all duration-500 whitespace-nowrap overflow-hidden max-w-[90vw]">
-        <button 
+        <button
           onClick={() => handleBrandClick('split')}
           className={`clickable flex items-center space-x-2 transition-colors ${activeBrand === 'split' ? 'text-white' : 'text-white/50 hover:text-white'}`}
           title="Home"
@@ -277,48 +272,51 @@ const App = () => {
           <Home className="w-4 h-4 md:w-5 md:h-5" />
         </button>
         <div className="w-[1px] h-4 md:h-6 bg-white/20"></div>
-        <button 
+        <button
           onClick={() => handleBrandClick('core8x')}
           className={`clickable font-sans tracking-widest text-xs md:text-sm font-bold transition-colors ${activeBrand === 'core8x' ? 'text-[var(--color-fire-red)]' : 'text-white/50 hover:text-white'}`}
         >
-          CORE8X
+          Core8x
         </button>
         <div className="w-[1px] h-4 md:h-6 bg-white/20"></div>
-        <button 
+        <button
           onClick={() => handleBrandClick('urbancave')}
           className={`clickable font-serif italic text-sm md:text-lg transition-colors ${activeBrand === 'urbancave' ? 'text-[var(--color-warm-gold)]' : 'text-white/50 hover:text-white'}`}
         >
-          UrbanCave
+          UrbanCrave
         </button>
       </div>
 
       {/* Core8x Panel */}
-      <div 
-        ref={coreRef} 
-        className={`absolute top-0 left-0 w-full h-1/2 md:w-1/2 md:h-full bg-[var(--color-charcoal)] overflow-x-hidden md:border-r border-b md:border-b-0 border-white/5 ${activeBrand === 'core8x' ? 'overflow-y-auto' : 'overflow-y-hidden'}`}
-        style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(211, 47, 47, 0.15) 0%, transparent 50%)' }}
+      <div
+        ref={coreRef}
+        className={`absolute top-0 left-0 w-full h-1/2 md:w-1/2 md:h-full overflow-x-hidden md:border-r border-b md:border-b-0 border-white/5 ${activeBrand === 'core8x' ? 'overflow-y-auto' : 'overflow-y-hidden'}`}
+        style={{ 
+          backgroundColor: '#0D1B2A',
+          backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(211, 47, 47, 0.12) 0%, transparent 60%)'
+        }}
       >
-        <div 
+        <div
           ref={contentCoreRef}
           className="brand-content absolute inset-0 flex flex-col items-center justify-center p-6 md:p-12 text-center clickable"
           onClick={() => handleBrandClick('core8x')}
         >
           <div className="group relative cursor-pointer flex flex-col items-center w-full max-w-sm">
-            <div 
+            <div
               className="relative w-48 h-48 md:w-80 md:h-80 mb-6 md:mb-8 flex justify-center items-center transition-transform duration-700 group-hover:scale-105 group-hover:-translate-y-2 z-10"
-              style={{ 
-                WebkitMaskImage: 'radial-gradient(circle closest-side, black 65%, transparent 100%)', 
-                maskImage: 'radial-gradient(circle closest-side, black 65%, transparent 100%)' 
+              style={{
+                WebkitMaskImage: 'radial-gradient(circle closest-side, black 65%, transparent 100%)',
+                maskImage: 'radial-gradient(circle closest-side, black 65%, transparent 100%)'
               }}
             >
-              <img 
-                src="/core8x-logo.jpg" 
-                alt="Core8x Logo" 
-                className="w-full h-full object-cover rounded-full z-10" 
+              <img
+                src="/core8x-logo.jpg"
+                alt="Core8x Logo"
+                className="w-full h-full object-cover rounded-full z-10"
               />
-              
+
               {/* Glancing Light Sheen over the metallic infinity rings */}
-              <div 
+              <div
                 className="shimmer absolute top-[-50%] left-[-150%] w-[100%] h-[200%] rotate-45 pointer-events-none z-20 mix-blend-overlay bg-gradient-to-r from-transparent via-white to-transparent opacity-90"
               ></div>
             </div>
@@ -334,23 +332,23 @@ const App = () => {
 
         <div className="full-content core absolute inset-0 opacity-0 pointer-events-none p-6 md:p-24 overflow-y-auto pb-32 md:pb-40" style={{ perspective: '1000px' }}>
           <div className="max-w-4xl mx-auto pt-10 md:pt-20 relative">
-            
+
             <div className="relative mb-4 md:mb-6">
               <h2 className="reveal-item text-4xl md:text-8xl font-black uppercase text-white leading-none">
-                Preventing <br/>
+                Preventing <br />
                 <span className="text-[var(--color-fire-red)]">The Unseen</span>
               </h2>
             </div>
-            
+
             <p className="reveal-item text-lg md:text-2xl text-white/70 font-light max-w-2xl mb-8 md:mb-12">
               Next-generation under-bonnet fire extinguishing systems engineered for immediate suppression.
             </p>
-            
+
             <div className="reveal-item relative w-full h-64 md:h-[500px] bg-black rounded-3xl overflow-hidden mb-12 md:mb-20 border border-white/10 group shadow-2xl">
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent z-10"></div>
-              <img 
-                src="https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&q=80&w=1600" 
-                alt="Engine Bay" 
+              <img
+                src="https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&q=80&w=1600"
+                alt="Engine Bay"
                 className="parallax-bg absolute top-[-20%] left-0 w-full h-[140%] object-cover opacity-60 mix-blend-luminosity will-change-transform"
               />
               <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 z-20">
@@ -362,7 +360,7 @@ const App = () => {
             <div className="grid md:grid-cols-2 gap-6 md:gap-8 mb-16">
               <div className="reveal-item p-6 md:p-10 glass rounded-3xl border-l-4 border-l-[var(--color-fire-red)] hover:bg-white/5 transition-colors duration-500 shadow-xl">
                 <h3 className="text-xl md:text-3xl font-bold mb-4 md:mb-6 uppercase flex items-center gap-3 md:gap-4">
-                  <ShieldCheck className="text-[var(--color-fire-red)] w-6 h-6 md:w-8 md:h-8"/>
+                  <ShieldCheck className="text-[var(--color-fire-red)] w-6 h-6 md:w-8 md:h-8" />
                   Kerala Govt. Mandate
                 </h3>
                 <p className="text-white/70 leading-relaxed text-sm md:text-lg font-light">
@@ -383,24 +381,34 @@ const App = () => {
       </div>
 
       {/* UrbanCave Panel */}
-      <div 
-        ref={urbanRef} 
-        className={`absolute top-1/2 md:top-0 left-0 md:left-1/2 w-full h-1/2 md:w-1/2 md:h-full bg-[var(--color-forest-green)] overflow-x-hidden md:border-l border-white/5 ${activeBrand === 'urbancave' ? 'overflow-y-auto' : 'overflow-y-hidden'}`}
+      <div
+        ref={urbanRef}
+        className={`absolute top-1/2 md:top-0 left-0 md:left-1/2 w-full h-1/2 md:w-1/2 md:h-full bg-[var(--color-spice-dark)] overflow-x-hidden md:border-l border-white/5 ${activeBrand === 'urbancave' ? 'overflow-y-auto' : 'overflow-y-hidden'}`}
         style={{ backgroundImage: 'radial-gradient(circle at 80% 50%, rgba(212, 175, 55, 0.15) 0%, transparent 50%)' }}
       >
-        <div 
+        <div
           ref={contentUrbanRef}
           className="brand-content absolute inset-0 flex flex-col items-center justify-center p-6 md:p-12 text-center clickable"
           onClick={() => handleBrandClick('urbancave')}
         >
           <div className="group relative cursor-pointer flex flex-col items-center w-full max-w-sm">
-            <div className="relative w-48 h-48 md:w-80 md:h-80 mb-6 md:mb-8 flex flex-col justify-center items-center transition-transform duration-700 group-hover:scale-105 group-hover:-translate-y-2 z-10">
-              <Leaf className="w-16 h-16 md:w-24 md:h-24 text-[var(--color-warm-gold)] mb-4 md:mb-6 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-12 drop-shadow-[0_0_15px_rgba(212,175,55,0.4)]" />
-              <h1 className="text-5xl md:text-7xl font-serif italic text-white drop-shadow-2xl flex">
-                {'UrbanCave'.split('').map((char, i) => (
-                  <span key={i} className="urbancave-char inline-block min-w-[0.5rem]">{char}</span>
-                ))}
-              </h1>
+            <div
+              className="relative w-56 h-56 md:w-96 md:h-96 mb-6 md:mb-8 flex justify-center items-center transition-transform duration-700 group-hover:scale-105 group-hover:-translate-y-2 z-10"
+              style={{
+                WebkitMaskImage: 'radial-gradient(circle closest-side, black 65%, transparent 100%)',
+                maskImage: 'radial-gradient(circle closest-side, black 65%, transparent 100%)'
+              }}
+            >
+              {/* Native CSS Background Removal Trick using Screen Blending & Contrast filtering */}
+              <img
+                src="/urbancrave-logo.png"
+                alt="Urban Crave Logo"
+                className="w-full h-full object-cover rounded-full z-10 mix-blend-screen contrast-125 brightness-110 grayscale-[10%]"
+              />
+
+              <div
+                className="shimmer absolute top-[-50%] left-[-150%] w-[100%] h-[200%] rotate-45 pointer-events-none z-20 mix-blend-overlay bg-gradient-to-r from-transparent via-white to-transparent opacity-90"
+              ></div>
             </div>
             <p className="text-sm md:text-2xl font-light text-[var(--color-warm-gold)] mb-6 md:mb-8">
               Premium Spices & Aromatics
@@ -417,20 +425,20 @@ const App = () => {
             <div className="relative mb-4 md:mb-6 mt-4 md:mt-0">
               <h2 className="reveal-item text-5xl md:text-8xl font-serif text-white leading-tight drop-shadow-2xl">
                 Idukki's Finest
-                <br/>
+                <br />
                 <span className="text-[var(--color-warm-gold)] italic">Cardamom & Pepper</span>
               </h2>
             </div>
-            
+
             <p className="reveal-item text-lg md:text-2xl text-white/80 font-light max-w-2xl mb-8 md:mb-12 leading-relaxed">
               Handpicked from the mist-covered hills of Kerala, bringing authentic warmth and sensory delight right to your kitchen.
             </p>
 
             <div className="reveal-item relative w-full h-64 md:h-[500px] bg-black rounded-3xl overflow-hidden mb-12 md:mb-20 shadow-[0_20px_60px_rgba(0,0,0,0.6)] group">
-              <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-forest-green)]/90 via-[var(--color-forest-green)]/20 to-transparent z-10 transition-opacity duration-700 group-hover:opacity-80"></div>
-              <img 
-                src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=80&w=1600" 
-                alt="Spices" 
+              <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-spice-dark)]/90 via-[var(--color-spice-dark)]/20 to-transparent z-10 transition-opacity duration-700 group-hover:opacity-80"></div>
+              <img
+                src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=80&w=1600"
+                alt="Spices"
                 className="parallax-bg absolute top-[-20%] left-0 w-full h-[140%] object-cover opacity-90 will-change-transform"
               />
               <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 z-20 transition-transform duration-700 transform group-hover:-translate-y-2">
@@ -442,7 +450,7 @@ const App = () => {
             <div className="grid md:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-20 relative">
               <div className="reveal-item p-6 md:p-10 glass bg-white/5 rounded-3xl border border-[var(--color-warm-gold)]/20 hover:bg-white/10 hover:border-[var(--color-warm-gold)]/50 transition-all duration-500 shadow-xl group">
                 <h3 className="text-2xl md:text-3xl font-serif italic text-[var(--color-warm-gold)] mb-4 md:mb-6 flex items-center gap-3 md:gap-4">
-                  <Leaf className="w-6 h-6 md:w-8 md:h-8 group-hover:rotate-12 transition-transform duration-500"/>
+                  <Leaf className="w-6 h-6 md:w-8 md:h-8 group-hover:rotate-12 transition-transform duration-500" />
                   Our Heritage
                 </h3>
                 <p className="text-white/80 leading-relaxed font-light text-sm md:text-lg">
@@ -452,9 +460,9 @@ const App = () => {
               <div className="reveal-item p-6 md:p-10 glass bg-white/5 rounded-3xl border border-[var(--color-warm-gold)]/20 flex flex-col justify-center items-center text-center hover:bg-white/10 hover:border-[var(--color-warm-gold)]/50 transition-all duration-500 shadow-xl">
                 <h3 className="text-2xl md:text-3xl font-serif italic mb-4 md:mb-6 text-white">Direct from Farm to Home</h3>
                 <p className="text-white/70 mb-6 md:mb-8 font-light text-sm md:text-lg">Skip the middleman. Chat directly with us to explore our fresh harvest collections.</p>
-                <a 
-                  href="https://wa.me/911234567890?text=I-am-interested-in-your-premium-spices" 
-                  target="_blank" 
+                <a
+                  href="https://wa.me/911234567890?text=I-am-interested-in-your-premium-spices"
+                  target="_blank"
                   rel="noreferrer"
                   className="bg-gradient-to-r from-[#25D366] to-[#1DA851] text-white px-6 md:px-8 py-4 md:py-5 rounded-full font-bold shadow-[0_0_30px_rgba(37,211,102,0.4)] hover:shadow-[0_0_40px_rgba(37,211,102,0.6)] transition-all duration-300 hover:scale-[1.05] flex items-center space-x-2 md:space-x-3 clickable text-sm md:text-base w-full justify-center md:w-auto"
                 >
@@ -469,14 +477,14 @@ const App = () => {
               <h3 className="reveal-item text-3xl md:text-5xl font-serif italic text-white mb-8 md:mb-12 text-center border-b border-white/10 pb-4 md:pb-6">Our Premium Selection</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
-                  { name: "Idukki Cardamom", weight: "300g", desc: "UrbanCave Special Package", price: "₹1,200", img: "/cardamom.png" },
+                  { name: "Idukki Cardamom", weight: "300g", desc: "UrbanCrave Special Package", price: "₹1,200", img: "/cardamom.png" },
                   { name: "Black Pepper", weight: "300g", desc: "Hand-picked, sun-dried", price: "₹450", img: "/pepper.png" },
                   { name: "Combo Pack", weight: "500g", desc: "Premium mixed batch", price: "₹1,400", img: "/combo.png" },
                   { name: "Reserve Combo", weight: "1kg", desc: "Family reserve pack", price: "₹2,600", img: "/combo.png" }
                 ].map((product, i) => (
                   <div key={i} className="product-card glass bg-white/5 rounded-2xl overflow-hidden border border-[var(--color-warm-gold)]/20 hover:border-[var(--color-warm-gold)] transition-all duration-500 group flex flex-col shadow-xl hover:shadow-[0_0_30px_rgba(212,175,55,0.2)] hover:-translate-y-2">
                     <div className="h-40 md:h-48 overflow-hidden relative">
-                      <img src={product.img} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 origin-center"/>
+                      <img src={product.img} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 origin-center" />
                       <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-md px-3 py-1 rounded-full text-xs font-mono text-[var(--color-warm-gold)] border border-[var(--color-warm-gold)]/40 shadow-lg">
                         {product.weight}
                       </div>
@@ -486,7 +494,7 @@ const App = () => {
                       <p className="text-white/60 text-xs md:text-sm mb-auto">{product.desc}</p>
                       <div className="flex justify-between items-center mt-4 md:mt-6 pt-4 border-t border-white/10">
                         <span className="text-base md:text-lg font-bold text-white tracking-wider">{product.price}</span>
-                        <a 
+                        <a
                           href={`https://wa.me/911234567890?text=I'd like to order: ${product.name} (${product.weight})`}
                           target="_blank" rel="noreferrer"
                           className="bg-white/10 hover:bg-[#25D366] hover:text-white border border-white/20 hover:border-transparent px-3 py-2 md:px-4 md:py-2 rounded-lg text-xs md:text-sm font-bold transition-all duration-300 clickable flex items-center space-x-1 md:space-x-2 group/btn"
